@@ -73,6 +73,6 @@ class NAIPromptConvert(scripts.Script):
             is_enable = args[0]
         else:
             is_enable = False
-        print(f"\nConvert to NAI prompt: {is_enable}")
+
         if is_enable:
             self.convert_to_nai_prompt(p)

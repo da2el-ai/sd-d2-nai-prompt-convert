@@ -35,7 +35,7 @@ def convert_bracket(src_prompt):
         return open_bra * count + text + close_bra * count
 
     # Replace all occurrences using the regular expression
-    converted_prompt = re.sub(r'\([^)]+:[0-9.]+\)', replace_function, temp_prompt)
+    converted_prompt = re.sub(r'\([^)]+:\s*[0-9.]+\s*\)', replace_function, temp_prompt)
     return converted_prompt
 
 
@@ -68,6 +68,11 @@ class NAIPromptConvert(scripts.Script):
           p.all_negative_prompts[i] = convert_bracket(p.all_negative_prompts[i])
 
 
-    def process(self, p, is_enable, *args):
-        if(is_enable):
-          self.convert_to_nai_prompt(p)
+    def process(self, p, *args):
+        if args:
+            is_enable = args[0]
+        else:
+            is_enable = False
+        print(f"\nConvert to NAI prompt: {is_enable}")
+        if is_enable:
+            self.convert_to_nai_prompt(p)

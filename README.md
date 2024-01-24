@@ -10,6 +10,10 @@
 {{{{kawaii}}}}
 ```
 
+### Note
+- DynamicPrompts を併用するには A1111 webui 1.7.0 以上が必要です
+- DynamicPrompts を使わないなら古いバージョンでも（たぶん）問題ないです
+
 
 ### Installation
 

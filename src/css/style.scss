@@ -1,0 +1,70 @@
+.d2-npc-show-modal-btn {
+    z-index: 100;
+    position: fixed;
+    right: 1rem;
+    top: 0;
+    padding: 0.5em 1em;
+    line-height: 1;
+    background: var(--button-secondary-background-fill);
+    border: solid 1px;
+    border-color: var(--button-secondary-border-color);
+    border-radius: 0 0 var(--button-small-radius) var(--button-small-radius);
+
+    &:hover {
+        background: var(--button-secondary-background-fill-hover);
+        border-color: var(--button-secondary-border-color-hover);
+    }
+}
+
+.d2-npc-modal {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    width: 100%;
+    max-width: 60rem;
+    padding: 2rem;
+    border: none;
+    border-radius: 0.5rem;
+
+    &[open] {
+        display: grid;
+    }
+
+    &::backdrop {
+        background-color: rgb(0 0 0 / 0.5);
+    }
+}
+
+.d2-npc-prompt-area {
+    display: block;
+    height: 8rem;
+    font-size: var(--d2-uic--prompt-font-size, 1rem);
+    border: var(--input-border-width) solid var(--input-border-color);
+    border-radius: var(--input-radius);
+}
+.d2-npc-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5em 1em;
+    line-height: 1;
+    background: var(--button-primary-background-fill);
+    border: var(--button-border-width) solid var(--button-primary-border-color);
+    border-radius: var(--button-small-radius);
+    color: var(--button-primary-text-color);
+
+    &:hover {
+        border-color: var(--button-primary-border-color-hover);
+        background: var(--button-primary-background-fill-hover);
+        color: var(--button-primary-text-color-hover);
+        box-shadow: var(--button-shadow-hover);
+    }
+}
+
+.d2-npc-close-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+}

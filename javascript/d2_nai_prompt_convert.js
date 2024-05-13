@@ -29,14 +29,20 @@ const _D2NPCPromptConvert = class _D2NPCPromptConvert {
   }
   static convertToSd(srcPrompt) {
     let tempPrompt = srcPrompt.replace(/\n/g, "");
-    let convertedPrompt = tempPrompt.replace(/{+[^}]+}+/g, _D2NPCPromptConvert.$_convertToSd);
+    let convertedPrompt = tempPrompt.replace(/[\[{]+[^\]}]+[\]}]+/g, _D2NPCPromptConvert.$_convertToSd);
     return convertedPrompt;
   }
   static $_convertToSd(prompt) {
-    const braceCount = (prompt.match(/{/g) || []).length;
-    const weight = 1 * Math.pow(_D2NPCPromptConvert.RATE, braceCount);
+    const braType = prompt.substring(0, 1);
+    const braCount = (prompt.match(/[\[{]/g) || []).length;
+    let weight = 0;
+    if (braType === "{") {
+      weight = 1 * Math.pow(_D2NPCPromptConvert.RATE, braCount);
+    } else {
+      weight = 1 * Math.pow(1 / _D2NPCPromptConvert.RATE, braCount);
+    }
     const weightAdjust = Math.floor(weight * 100) / 100;
-    const text = prompt.replace(/[{}]+/g, "");
+    const text = prompt.replace(/[\[\]{}]+/g, "");
     return `(${text}:${weightAdjust})`;
   }
 };

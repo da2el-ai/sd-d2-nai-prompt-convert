@@ -29,15 +29,23 @@ class D2NPCPromptConvert {
 
     static convertToSd(srcPrompt: string) {
         let tempPrompt = srcPrompt.replace(/\n/g, '');
-        let convertedPrompt = tempPrompt.replace(/{+[^}]+}+/g, D2NPCPromptConvert.$_convertToSd);
+        let convertedPrompt = tempPrompt.replace(/[\[{]+[^\]}]+[\]}]+/g, D2NPCPromptConvert.$_convertToSd);
         return convertedPrompt;
     }
 
     static $_convertToSd(prompt: string) {
-        const braceCount = (prompt.match(/{/g) || []).length;
-        const weight = 1 * Math.pow(D2NPCPromptConvert.RATE, braceCount);
+        const braType = prompt.substring(0, 1);
+        const braCount = (prompt.match(/[\[{]/g) || []).length;
+        let weight = 0;
+
+        if (braType === '{') {
+            weight = 1 * Math.pow(D2NPCPromptConvert.RATE, braCount);
+        } else {
+            weight = 1 * Math.pow(1 / D2NPCPromptConvert.RATE, braCount);
+        }
+
         const weightAdjust = Math.floor(weight * 100) / 100;
-        const text = prompt.replace(/[{}]+/g, '');
+        const text = prompt.replace(/[\[\]{}]+/g, '');
         return `(${text}:${weightAdjust})`;
     }
 }

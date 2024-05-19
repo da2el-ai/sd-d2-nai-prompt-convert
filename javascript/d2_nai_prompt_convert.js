@@ -5,6 +5,9 @@ var __publicField = (obj, key, value) => {
   return value;
 };
 const _D2NPCPromptConvert = class _D2NPCPromptConvert {
+  /**
+   * StableDiffusionのweightをNAI方式に変換
+   */
   static convertToNai(srcPrompt) {
     const tempPrompt = srcPrompt.replace(/\n/g, "");
     const convertedPrompt = tempPrompt.replace(/\([^)]+:\s*[0-9.]+\s*\)/g, _D2NPCPromptConvert.$_convertToNai);
@@ -27,6 +30,9 @@ const _D2NPCPromptConvert = class _D2NPCPromptConvert {
     }
     return openBra.repeat(count) + text + closeBra.repeat(count);
   }
+  /**
+   * NAIのweightをStableDiffusion方式に変換
+   */
   static convertToSd(srcPrompt) {
     let tempPrompt = srcPrompt.replace(/\n/g, "");
     let convertedPrompt = tempPrompt.replace(/[\[{]+[^\]}]+[\]}]+/g, _D2NPCPromptConvert.$_convertToSd);
@@ -41,7 +47,12 @@ const _D2NPCPromptConvert = class _D2NPCPromptConvert {
     } else {
       weight = 1 * Math.pow(1 / _D2NPCPromptConvert.RATE, braCount);
     }
-    const weightAdjust = Math.floor(weight * 100) / 100;
+    let weightAdjust;
+    if (opts.d2_npc_enable_rounding) {
+      weightAdjust = Math.round(weight * 10) / 10;
+    } else {
+      weightAdjust = Math.floor(weight * 100) / 100;
+    }
     const text = prompt.replace(/[\[\]{}]+/g, "");
     return `(${text}:${weightAdjust})`;
   }

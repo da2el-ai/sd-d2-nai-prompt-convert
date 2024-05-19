@@ -14,6 +14,13 @@
 - DynamicPrompts を併用するには A1111 webui 1.7.0 以上が必要です
 - DynamicPrompts を使わないなら古いバージョンでも（たぶん）問題ないです
 
+### Update
+
+- 2024.05.19
+  - `settings > D2 NAI Prompt Convert` に `NAIの{}をSDの数値に四捨五入して変換する` を追加
+  - 上記をONにすると `{{{{smile}}}}` が `(smile:1.2)` になる
+  - OFFだと `(smile:1.21)` になる
+
 
 ### Installation
 

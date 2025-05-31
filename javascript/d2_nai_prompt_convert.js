@@ -126,14 +126,19 @@ class D2NPCModal {
     this.modalContainer.showModal();
   }
 }
-onUiLoaded(async () => {
-  var _a;
-  const enableCheckbox = gradioApp().getElementById("d2_npc_enable");
-  const txt2imgActionColumn = gradioApp().getElementById("txt2img_actions_column");
+const setUi = (mode) => {
+  const enableCheckbox = gradioApp().getElementById(`d2_npc_enable_${mode}`);
+  const actionColumn = gradioApp().getElementById(`${mode}_actions_column`);
+  console.log("actionColumn", actionColumn);
   const container = document.createElement("div");
   container.classList.add("d2_npc_container");
   container.appendChild(enableCheckbox);
-  txt2imgActionColumn.appendChild(container);
+  actionColumn.appendChild(container);
+};
+onUiLoaded(async () => {
+  var _a;
+  setUi("txt2img");
+  setUi("img2img");
   const convertModal = new D2NPCModal();
   const showBtn = document.createElement("button");
   showBtn.classList.add("d2-npc-show-modal-btn");

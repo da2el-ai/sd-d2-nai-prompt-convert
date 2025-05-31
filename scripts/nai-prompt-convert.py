@@ -53,10 +53,11 @@ class NAIPromptConvert(scripts.Script):
         return AlwaysVisible
 
     def ui(self, is_img2img):
-        if (is_img2img):
-            return None
+        # if (is_img2img):
+        #     return None
+        mode = "img2img" if is_img2img else "txt2img"
 
-        enable_chheckbox = gr.Checkbox(value=False, label='Convert to NAI prompt',elem_id='d2_npc_enable')
+        enable_chheckbox = gr.Checkbox(value=False, label='Convert to NAI prompt',elem_id='d2_npc_enable_'+mode)
         return [enable_chheckbox]
 
 

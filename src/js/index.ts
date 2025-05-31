@@ -3,15 +3,28 @@ declare var onUiLoaded: any;
 
 import { D2NPCModal } from './D2NPCModal';
 
-onUiLoaded(async () => {
-    const enableCheckbox = gradioApp().getElementById('d2_npc_enable');
 
-    const txt2imgActionColumn = gradioApp().getElementById('txt2img_actions_column');
+/**
+ * txt2img, img2imgのアクションカラムにUIを追加する
+ * @param mode 
+ */
+const setUi = (mode: 'txt2img' | 'img2img') => {
+    const enableCheckbox = gradioApp().getElementById(`d2_npc_enable_${mode}`);
+
+
+    const actionColumn = gradioApp().getElementById(`${mode}_actions_column`);
+    console.log("actionColumn", actionColumn);
     const container = document.createElement('div');
     container.classList.add('d2_npc_container');
     container.appendChild(enableCheckbox);
 
-    txt2imgActionColumn.appendChild(container);
+    actionColumn.appendChild(container);
+};
+
+
+onUiLoaded(async () => {
+    setUi('txt2img');
+    setUi('img2img');
 
     // プロンプト変換モーダル
     const convertModal = new D2NPCModal();
